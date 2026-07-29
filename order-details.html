@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Order Details</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  
+  <link rel="stylesheet" href="order-details.css">
+  
+</head>
+
+<body>
+  
+  <header class="header">
+    
+    <button id="backBtn" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    
+    <h2>Order Details</h2>
+    
+  </header>
+  
+  <div class="container">
+    
+    <!-- Restaurant -->
+    
+    <div class="card">
+      
+      <h3 id="restaurantName">Restaurant</h3>
+      
+      <p id="orderNumber">Order #</p>
+      
+      <span id="orderStatus" class="status">
+        Pending
+      </span>
+      
+    </div>
+    
+    <!-- Items -->
+    
+    <div class="card">
+      
+      <h3>Items</h3>
+      
+      <div id="itemsContainer"></div>
+      
+    </div>
+    
+    <!-- Address -->
+    
+    <div class="card">
+      
+      <h3>Delivery Address</h3>
+      
+      <p id="address"></p>
+      
+    </div>
+    
+    <!-- Payment -->
+    
+    <div class="card">
+      
+      <h3>Payment Method</h3>
+      
+      <p id="paymentMethod"></p>
+      
+    </div>
+    
+    <!-- Price Summary -->
+    
+    <div class="card">
+      
+      <h3>Price Summary</h3>
+      
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal">0 DH</span>
+      </div>
+      
+      <div class="summary-row">
+        <span>Delivery Fee</span>
+        <span id="deliveryFee">0 DH</span>
+      </div>
+      
+      <div class="summary-row">
+        <span>Service Fee</span>
+        <span id="serviceFee">0 DH</span>
+      </div>
+      
+      <hr>
+      
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="totalPrice">0 DH</span>
+      </div>
+      
+    </div>
+    
+    <!-- Timeline -->
+    
+    <div class="card">
+      
+      <h3>Order Timeline</h3>
+      
+      <div class="timeline">
+        
+        <div class="step active" id="stepPlaced">
+          <div class="circle"></div>
+          <span>Order Placed</span>
+        </div>
+        
+        <div class="step" id="stepPreparing">
+          <div class="circle"></div>
+          <span>Preparing</span>
+        </div>
+        
+        <div class="step" id="stepDriver">
+          <div class="circle"></div>
+          <span>Driver Assigned</span>
+        </div>
+        
+        <div class="step" id="stepWay">
+          <div class="circle"></div>
+          <span>On The Way</span>
+        </div>
+        
+        <div class="step" id="stepDelivered">
+          <div class="circle"></div>
+          <span>Delivered</span>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <!-- Support -->
+    
+    <div class="card">
+      
+      <h3>Need Help?</h3>
+      
+      <button id="supportBtn" class="support-btn">
+      
+        <i class="fa-solid fa-headset"></i>
+        
+        Contact Support
+        
+      </button>
+      
+    </div>
+    
+    <!-- Buttons -->
+    
+    <button id="trackBtn" class="track-btn">
+    
+      <i class="fa-solid fa-location-arrow"></i>
+      
+      Track Order
+      
+    </button>
+    
+  </div>
+  
+  <script type="module" src="order-details.js"></script>
+  
+</body>
+
+</html>
