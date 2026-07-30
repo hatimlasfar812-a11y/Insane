@@ -1,4 +1,3 @@
-
 import { auth, db } from "./firebase.js";
 
 import {
@@ -30,9 +29,11 @@ onAuthStateChanged(auth, async (user) => {
   where("uid", "==", user.uid)
 );
 
+let snapshot;
+
 try {
   
-  const snapshot = await getDocs(q);
+  snapshot = await getDocs(q);
   
   console.log("User UID:", user.uid);
   console.log("Orders found:", snapshot.size);
@@ -44,9 +45,9 @@ try {
 } catch (err) {
   
   console.error(err);
+  return;
   
 }
-
 console.log("Orders found:", snapshot.size);
   
   ordersContainer.innerHTML = "";
