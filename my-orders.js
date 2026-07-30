@@ -24,17 +24,14 @@ onAuthStateChanged(auth, async (user) => {
     
   }
   
-  const q = query(
-    
-    collection(db, "orders"),
-    
-    where("uid", "==", user.uid),
-    
-    orderBy("createdAt", "desc")
-    
-  );
-  
-  const snapshot = await getDocs(q);
+ const q = query(
+  collection(db, "orders"),
+  where("uid", "==", user.uid)
+);
+
+const snapshot = await getDocs(q);
+
+console.log("Orders found:", snapshot.size);
   
   ordersContainer.innerHTML = "";
   
