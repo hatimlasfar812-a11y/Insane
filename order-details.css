@@ -1,223 +1,531 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:"Cairo",sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
 }
 
-body{
-  background:#f5f6fa;
-  color:#222;
-  padding:85px 18px 30px;
+body {
+  background: #f4f6fb;
+  color: #222;
+  padding: 90px 18px 40px;
 }
 
-.header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:70px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:0 18px;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
-  z-index:999;
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, .08);
+  z-index: 1000;
 }
 
-.back-btn{
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:#f3f3f3;
-  cursor:pointer;
-  font-size:18px;
+.back-btn {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: #f2f2f2;
+  font-size: 19px;
+  cursor: pointer;
+  transition: .25s;
 }
 
-.header h2{
-  font-size:30px;
-  font-weight:800;
+.back-btn:hover {
+  background: #ff7a00;
+  color: #fff;
 }
 
-.container{
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+.header h2 {
+  font-size: 24px;
+  font-weight: 800;
 }
 
-.card{
-  background:#fff;
-  border-radius:18px;
-  padding:20px;
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
+.container {
+  max-width: 760px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
-.card h3{
-  font-size:22px;
-  margin-bottom:15px;
-  font-weight:800;
+.card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 22px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .07);
+  border: 1px solid #ececec;
+  transition: .25s;
 }
 
-#restaurantName{
-  font-size:26px;
-  margin-bottom:8px;
+.card:hover {
+  transform: translateY(-3px);
 }
 
-#orderNumber{
-  color:#777;
-  margin-bottom:15px;
+.card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 18px;
 }
 
-.status{
-  display:inline-block;
-  padding:10px 18px;
-  border-radius:30px;
-  background:#FFF3CD;
-  color:#B8860B;
-  font-weight:700;
+#restaurantName {
+  font-size: 28px;
+  font-weight: 900;
+  color: #111;
 }
 
-#itemsContainer .item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
+#orderNumber {
+  margin-top: 8px;
+  color: #888;
+  font-size: 15px;
 }
 
-#itemsContainer .item:last-child{
-  border-bottom:none;
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 50px;
+  background: #FFF4DB;
+  color: #d97706;
+  font-size: 14px;
+  font-weight: 800;
 }
 
-.item-left{
-  display:flex;
-  flex-direction:column;
+.status::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff9800;
 }
 
-.item-name{
-  font-weight:700;
-  font-size:17px;
+#itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.item-price{
-  font-weight:800;
-  color:#ff7a00;
-  font-size:17px;
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid #efefef;
+  transition: .25s;
+}
+
+.item:hover {
+  background: #fff8f2;
+  border-color: #ffb36a;
+}
+
+.item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-name {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.item-price {
+  color: #ff7a00;
+  font-weight: 900;
+  font-size: 18px;
 }
 
 #address,
-#paymentMethod{
-  color:#555;
-  line-height:30px;
-  word-break:break-word;
+#paymentMethod {
+  line-height: 30px;
+  color: #555;
+  font-size: 15px;
 }
 
-.summary-row,
-.summary-total{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:15px 0;
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+  font-size: 16px;
 }
 
-.summary-row span:last-child{
-  font-weight:700;
+.summary-row span:last-child {
+  font-weight: 700;
 }
 
-.summary-total{
-  font-size:24px;
-  font-weight:800;
-  color:#ff7a00;
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 2px dashed #ececec;
+  font-size: 25px;
+  font-weight: 900;
+  color: #ff7a00;
+}
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline {
+  position: relative;
+  margin-top: 10px;
 }
 
-hr{
-  border:none;
-  border-top:1px solid #eee;
-  margin:15px 0;
+.step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  padding: 0 0 26px 0;
 }
 
-.timeline{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+.step:last-child {
+  padding-bottom: 0;
 }
 
-.step{
-  display:flex;
-  align-items:center;
-  gap:15px;
+.step::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 26px;
+  width: 3px;
+  height: 100%;
+  background: #e5e5e5;
+  border-radius: 10px;
 }
 
-.circle{
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  background:#ddd;
+.step:last-child::before {
+  display: none;
 }
 
-.step.active .circle{
-  background:#ff7a00;
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #d8d8d8;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 3px #ececec;
+  transition: .3s;
+  flex-shrink: 0;
 }
 
-.step.active span{
-  color:#ff7a00;
-  font-weight:700;
+.step span {
+  font-size: 16px;
+  font-weight: 700;
+  color: #666;
 }
+
+.step.active .circle {
+  background: #ff7a00;
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, .18);
+}
+
+.step.active span {
+  color: #ff7a00;
+}
+
+/* =========================
+   BUTTONS
+========================= */
 
 .support-btn,
-.track-btn{
-  width:100%;
-  height:56px;
-  border:none;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  font-size:17px;
-  font-weight:700;
-  cursor:pointer;
+.track-btn {
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  transition: .25s;
 }
 
-.support-btn{
-  background:#f1f1f1;
-  color:#333;
-  margin-top:10px;
+.support-btn {
+  background: #f2f2f2;
+  color: #333;
 }
 
-.track-btn{
-  background:#ff7a00;
-  color:#fff;
+.support-btn:hover {
+  background: #e8e8e8;
 }
 
-.track-btn:hover{
-  background:#e76d00;
+.track-btn {
+  background: linear-gradient(135deg, #ff8a00, #ff6200);
+  color: #fff;
+  box-shadow: 0 12px 25px rgba(255, 122, 0, .35);
 }
 
-.support-btn:hover{
-  background:#e8e8e8;
+.track-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 35px rgba(255, 122, 0, .45);
 }
 
-@media(max-width:600px){
+/* =========================
+   ANIMATIONS
+========================= */
 
-.header h2{
-  font-size:22px;
+.card {
+  animation: fadeUp .45s ease;
 }
+
+@keyframes fadeUp {
+  
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+  
+  body {
+    padding: 85px 14px 25px;
+  }
+  
+  .header {
+    height: 68px;
+  }
+  
+  .header h2 {
+    font-size: 22px;
+  }
+  
+  .card {
+    border-radius: 20px;
+    padding: 18px;
+  }
+  
+  #restaurantName {
+    font-size: 24px;
+  }
+  
+  .summary-total {
+    font-size: 22px;
+  }
+  
+  .track-btn,
+  .support-btn {
+    height: 54px;
+    font-size: 16px;
+  }
+  
+}
+/* =========================
+   PREMIUM DESIGN
+========================= */
+
+body{
+
+background:
+radial-gradient(circle at top right,#fff3e6 0%,transparent 30%),
+radial-gradient(circle at bottom left,#fff6ec 0%,transparent 35%),
+#f6f7fb;
+
+}
+
+/* Scroll */
+
+::-webkit-scrollbar{
+width:7px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#ff7a00;
+border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+background:transparent;
+}
+
+/* Cards */
 
 .card{
-  padding:18px;
+
+overflow:hidden;
+position:relative;
+
 }
 
+.card::after{
+
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:5px;
+
+background:linear-gradient(
+90deg,
+#ff7a00,
+#ffb347
+);
+
+}
+
+/* Restaurant */
+
 #restaurantName{
-  font-size:22px;
+
+letter-spacing:.3px;
+
+}
+
+/* Order Number */
+
+#orderNumber{
+
+font-weight:600;
+
+}
+
+/* Summary */
+
+.summary-row{
+
+padding:6px 0;
+
+}
+
+.summary-row span:first-child{
+
+color:#777;
+
 }
 
 .summary-total{
-  font-size:22px;
+
+background:#fff7ef;
+padding:18px;
+border-radius:18px;
+margin-top:20px;
+
 }
+
+/* Address */
+
+#address{
+
+background:#fafafa;
+padding:18px;
+border-radius:16px;
+border:1px solid #eee;
+
+}
+
+/* Payment */
+
+#paymentMethod{
+
+background:#fafafa;
+padding:18px;
+border-radius:16px;
+font-weight:700;
+border:1px solid #eee;
+
+}
+
+/* Items Hover */
+
+.item{
+
+cursor:pointer;
+
+}
+
+.item:hover{
+
+transform:scale(1.02);
+
+box-shadow:
+0 8px 18px
+rgba(0,0,0,.06);
+
+}
+
+/* Buttons */
+
+.track-btn{
+
+position:sticky;
+bottom:20px;
+
+}
+
+/* Ripple */
+
+.track-btn:active,
+.support-btn:active{
+
+transform:scale(.97);
+
+}
+
+/* Shadow */
+
+.track-btn{
+
+box-shadow:
+
+0 15px 35px
+rgba(255,122,0,.35);
+
+}
+
+/* Nice animation */
+
+@keyframes floatCard{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-3px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+.card:hover{
+
+animation:floatCard .6s ease;
 
 }
