@@ -39,7 +39,7 @@ const categoriesContainer =
 // =====================
 // DATA
 // =====================
-
+let restaurant = {};
 let products = [];
 
 // =====================
@@ -48,6 +48,11 @@ let products = [];
 
 async function loadMenu() {
   localStorage.setItem("restaurantId", restaurantId);
+  const restaurantDoc = await getDoc(
+  doc(db, "restaurants", restaurantId)
+);
+
+restaurant = restaurantDoc.data();
   
   if (!restaurantId) {
     menuContainer.innerHTML = "<p>Restaurant not found.</p>";
@@ -222,6 +227,10 @@ addToCart({
   name: product.name,
   image: product.image,
   
+  restaurantId,
+restaurantName: restaurant.name,
+  restaurantLogo: restaurant.logo,
+  
   price: product.price + extraPrice,
   
   sauce,
@@ -361,9 +370,13 @@ const without = [...document.querySelectorAll('.option-group input[type="checkbo
 const extraPrice = extras.reduce((sum, e) => sum + e.price, 0);
 
 addToCart({
+  
   id: product.id,
   name: product.name,
   image: product.image,
+  restaurantId,
+restaurantName: restaurant.name,
+  restaurantLogo: restaurant.logo,
   price: product.price + extraPrice,
   sauce,
   extras,
