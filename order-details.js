@@ -7,7 +7,7 @@ import {
 
 const params = new URLSearchParams(window.location.search);
 const orderId = params.get("id");
-
+alert("Order ID: " + orderId);
 const backBtn = document.getElementById("backBtn");
 
 const restaurantName = document.getElementById("restaurantName");
