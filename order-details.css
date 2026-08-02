@@ -1,145 +1,209 @@
-import { db } from "./firebase.js";
-
-import {
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-const params = new URLSearchParams(window.location.search);
-const params = new URLSearchParams(window.location.search);
-
-let orderId = params.get("id");
-
-if (!orderId) {
-  orderId = localStorage.getItem("lastOrderId");
-}
-alert("Order ID: " + orderId);
-const backBtn = document.getElementById("backBtn");
-
-const restaurantName = document.getElementById("restaurantName");
-const orderNumber = document.getElementById("orderNumber");
-const statusBadge = document.getElementById("orderStatus");
-
-const deliveryAddress = document.getElementById("address");
-
-const itemsContainer = document.getElementById("itemsContainer");
-const paymentMethod = document.getElementById("paymentMethod");
-
-const subtotal = document.getElementById("subtotal");
-const deliveryFee = document.getElementById("deliveryFee");
-const serviceFee = document.getElementById("serviceFee");
-const totalPrice = document.getElementById("totalPrice");
-
-backBtn.onclick = () => history.back();
-
-async function loadOrder() {
-  
-  if (!orderId) {
-    alert("Order not found");
-    return;
-  }
-  
-  try {
-    
-    const snap = await getDoc(doc(db, "orders", orderId));
-    
-    if (!snap.exists()) {
-      alert("Order not found");
-      return;
-    }
-    
-    const order = snap.data();
-    
-    // Restaurant
-    restaurantName.textContent =
-      order.restaurantName || "Restaurant";
-    
-    orderNumber.textContent =
-      "#" + orderId.slice(0, 8).toUpperCase();
-    
-    statusBadge.textContent =
-      order.status || "Pending";
-    
-    // Address
-    deliveryAddress.innerHTML = `
-📍 ${order.address || ""}<br><br>
-🏢 Building: ${order.building || "-"}<br>
-🏠 Floor: ${order.floor || "-"}<br>
-📝 Note: ${order.note || "-"}
-`;
-    
-    // Items
-    itemsContainer.innerHTML = "";
-    
-    order.items.forEach(item => {
-      
-      itemsContainer.innerHTML += `
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee;">
-        <div>
-          <strong>${item.quantity} × ${item.name}</strong>
-        </div>
-
-        <div>
-          ${(item.price * item.quantity).toFixed(2)} DH
-        </div>
-      </div>
-      `;
-      
-    });
-    
-    // Payment
-    paymentMethod.textContent =
-      order.paymentMethod || "Cash";
-    
-    // Prices
-    subtotal.textContent =
-      order.subtotal.toFixed(2) + " DH";
-    
-    deliveryFee.textContent =
-      order.deliveryFee.toFixed(2) + " DH";
-    
-    serviceFee.textContent =
-      order.serviceFee.toFixed(2) + " DH";
-    
-    totalPrice.textContent =
-      order.total.toFixed(2) + " DH";
-    
-    // Status colors
-    const status =
-      (order.status || "").toLowerCase();
-    
-    if (status === "pending") {
-      statusBadge.style.background = "#FFF3CD";
-      statusBadge.style.color = "#B8860B";
-    }
-    
-    if (status === "preparing") {
-      statusBadge.style.background = "#E3F2FD";
-      statusBadge.style.color = "#1565C0";
-    }
-    
-    if (status === "driver assigned") {
-      statusBadge.style.background = "#E8F5E9";
-      statusBadge.style.color = "#2E7D32";
-    }
-    
-    if (status === "on the way") {
-      statusBadge.style.background = "#D1ECF1";
-      statusBadge.style.color = "#0C5460";
-    }
-    
-    if (status === "delivered") {
-      statusBadge.style.background = "#D4EDDA";
-      statusBadge.style.color = "#155724";
-    }
-    
-  } catch (err) {
-    
-    console.error(err);
-    alert(err.message);
-    
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cairo", sans-serif;
 }
 
-loadOrder();
+body {
+  background: #f5f6fa;
+  color: #222;
+  padding: 85px 18px 30px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, .08);
+  z-index: 1000;
+}
+
+.back-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: #f3f3f3;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.header h2 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 700px;
+  margin: auto;
+}
+
+.card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .06);
+}
+
+.card h3 {
+  font-size: 19px;
+  margin-bottom: 14px;
+  font-weight: 800;
+}
+
+#restaurantName {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+#orderNumber {
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.status {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 30px;
+  background: #FFF3CD;
+  color: #B8860B;
+  font-weight: 700;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 700;
+}
+
+.item-price {
+  font-weight: 800;
+  color: #ff7a00;
+}
+
+.summary-row,
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.summary-total {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ff7a00;
+}
+
+.timeline {
+  margin-top: 10px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 20px;
+  width: 2px;
+  height: 100%;
+  background: #ddd;
+}
+
+.step:last-child::before {
+  display: none;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ddd;
+  flex-shrink: 0;
+}
+
+.step.active .circle {
+  background: #ff7a00;
+}
+
+.step.active span {
+  color: #ff7a00;
+  font-weight: 700;
+}
+
+.support-btn,
+.track-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: .25s;
+}
+
+.support-btn {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.support-btn:hover {
+  background: #e6e6e6;
+}
+
+.track-btn {
+  background: #ff7a00;
+  color: #fff;
+}
+
+.track-btn:hover {
+  background: #ea6f00;
+}
+
+#address,
+#paymentMethod {
+  line-height: 28px;
+  color: #555;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 15px 0;
+}
