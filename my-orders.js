@@ -36,7 +36,7 @@ try {
   snapshot = await getDocs(q);
   
   console.log("User UID:", user.uid);
-  console.log("Orders found:", snapshot.size);
+ 
   
   snapshot.forEach(doc => {
     console.log(doc.id, doc.data());
@@ -49,7 +49,7 @@ try {
   
 }
 console.log("Orders found:", snapshot.size);
-  alert("Orders found: " + snapshot.size);
+ 
   ordersContainer.innerHTML = "";
   
   if (snapshot.empty) {
