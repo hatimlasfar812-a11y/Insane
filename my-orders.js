@@ -48,8 +48,7 @@ try {
   return;
   
 }
-console.log("Orders found:", snapshot.size);
- 
+
   ordersContainer.innerHTML = "";
   
   if (snapshot.empty) {
