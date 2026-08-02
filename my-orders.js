@@ -70,93 +70,26 @@ console.log("Orders found:", snapshot.size);
     
   }
   
-  snapshot.forEach((doc) => {
+ snapshot.forEach((doc) => {
+  
+  try {
     
     const order = doc.data();
     
-    let statusClass = "pending";
-    
-    switch ((order.status || "").toLowerCase()) {
-      
-      case "preparing":
-        statusClass = "preparing";
-        break;
-        
-      case "on the way":
-        statusClass = "onway";
-        break;
-        
-      case "delivered":
-        statusClass = "delivered";
-        break;
-        
-      case "cancelled":
-        statusClass = "cancelled";
-        break;
-        
-    }
-    
-    const date = order.createdAt?.toDate ?
-      order.createdAt.toDate().toLocaleString() :
-      "";
-    
     ordersContainer.innerHTML += `
-
-<div
-class="order-card"
-data-id="${doc.id}">
-
-<div class="order-top">
-
-<div>
-
-<div class="restaurant-name">
-
-${order.restaurantName || "Restaurant"}
-
-</div>
-
-<div class="order-number">
-
-${order.orderNumber || doc.id.slice(0,8).toUpperCase()}
-
-</div>
-
-</div>
-
-<span class="status ${statusClass}">
-
-${order.status || "Pending"}
-
-</span>
-
-</div>
-
-<div class="price">
-
-${order.total} DH
-
-</div>
-
-<div class="date">
-
-${date}
-
-</div>
-
-<div class="view-btn">
-
-<span>View Details</span>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-</div>
-
-`;
+      <div class="order-card">
+        <h2>${order.restaurantName || "Restaurant"}</h2>
+        <p>${order.total} DH</p>
+      </div>
+    `;
     
-  });
+  } catch (err) {
+    
+    alert(err.message);
+    
+  }
+  
+});
   
   document.querySelectorAll(".order-card")
     .forEach(card => {
