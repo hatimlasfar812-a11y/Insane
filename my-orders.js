@@ -51,8 +51,6 @@ try {
 console.log("Orders found:", snapshot.size);
   alert("Orders found: " + snapshot.size);
   ordersContainer.innerHTML = "";
-  ordersContainer.style.background = "red";
-ordersContainer.style.minHeight = "500px";
   
   if (snapshot.empty) {
     
@@ -72,9 +70,27 @@ ordersContainer.style.minHeight = "500px";
     
   }
   
-snapshot.forEach((doc) => {
-  ordersContainer.innerHTML += "<h1 style='color:white'>TEST</h1>";
+ snapshot.forEach((doc) => {
+  
+  try {
+    
+    const order = doc.data();
+    
+    ordersContainer.innerHTML += `
+      <div class="order-card">
+        <h2>${order.restaurantName || "Restaurant"}</h2>
+        <p>${order.total} DH</p>
+      </div>
+    `;
+    
+  } catch (err) {
+    
+    alert(err.message);
+    
+  }
+  
 });
+  
   document.querySelectorAll(".order-card")
     .forEach(card => {
       
