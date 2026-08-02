@@ -70,24 +70,17 @@ console.log("Orders found:", snapshot.size);
     
   }
   
- snapshot.forEach((doc) => {
+snapshot.forEach((doc) => {
   
-  try {
-    
-    const order = doc.data();
-    
-    ordersContainer.innerHTML += `
-      <div class="order-card">
-        <h2>${order.restaurantName || "Restaurant"}</h2>
-        <p>${order.total} DH</p>
-      </div>
-    `;
-    
-  } catch (err) {
-    
-    alert(err.message);
-    
-  }
+  const order = doc.data();
+  
+  ordersContainer.innerHTML += `
+    <div class="order-card" data-id="${doc.id}">
+      <h2>${order.restaurantName || "Restaurant"}</h2>
+      <p>Total: ${order.total.toFixed(2)} DH</p>
+      <p>Status: ${order.status}</p>
+    </div>
+  `;
   
 });
   
