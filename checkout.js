@@ -116,7 +116,9 @@ placeOrder.onclick = async () => {
    const docRef = await addDoc(collection(db, "orders"), {
       
       uid: currentUser.uid,
-      
+      restaurantId: cart[0].restaurantId,
+  restaurantName: cart[0].restaurantName,
+  restaurantLogo: cart[0].restaurantLogo,
       items: cart,
       
       subtotal: subtotalValue,
