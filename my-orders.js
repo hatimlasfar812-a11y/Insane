@@ -49,7 +49,7 @@ try {
   
 }
 console.log("Orders found:", snapshot.size);
-  
+  alert("Orders found: " + snapshot.size);
   ordersContainer.innerHTML = "";
   
   if (snapshot.empty) {
